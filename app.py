@@ -120,6 +120,16 @@ st.markdown("""
         color: #ffffff;
         margin-top: 20px;
     }
+    
+    .copy-btn {
+        background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 12px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -130,15 +140,29 @@ st.title("💬 Chat with Gemini AI")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Function to add code block and copy button
+def format_code_block(code):
+    return f"""
+        <div style="position: relative; background: #2d2d2d; color: #ffffff; padding: 10px; border-radius: 10px; font-family: monospace;">
+            <pre>{code}</pre>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText(`{code.replace('`', '\\`')}`)">Copy Code</button>
+        </div>
+    """
+
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
+    formatted_message = message['content']
+    if '```' in formatted_message:
+        parts = formatted_message.split('```')
+        formatted_message = parts[0] + format_code_block(parts[1]) + parts[2]
+
     with st.container():
         st.markdown(f"""
             <div class="chat-message {message['role']}">
                 <div class="avatar">
                     <img src="https://api.dicebear.com/7.x/bottts/svg?seed={'Gemini' if message['role'] == 'assistant' else 'User'}" style="max-height: 78px; max-width: 78px; border-radius: 50%; object-fit: cover;">
                 </div>
-                <div class="message">{message['content']}</div>
+                <div class="message">{formatted_message}</div>
             </div>
         """, unsafe_allow_html=True)
 
@@ -173,6 +197,7 @@ if prompt := st.chat_input("What's on your mind?"):
                     <div class="message">{full_response}▌</div>
                 </div>
             """, unsafe_allow_html=True)
+        full_response = format_code_block(full_response) if '```' in full_response else full_response
         message_placeholder.markdown(f"""
             <div class="chat-message bot">
                 <div class="avatar">
