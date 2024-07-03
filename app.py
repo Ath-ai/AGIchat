@@ -68,6 +68,8 @@ st.markdown("""
         display: flex;
         align-items: center;
         animation: fadeIn 0.5s ease-out;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     @keyframes fadeIn {
