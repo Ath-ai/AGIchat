@@ -129,9 +129,22 @@ st.markdown("""
         padding: 5px 10px;
         cursor: pointer;
         font-size: 12px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
+
+# Function to add code block and copy button
+def format_code_block(code):
+    escaped_code = code.replace("`", "\\`")
+    return f"""
+        <div style="position: relative; background: #2d2d2d; color: #ffffff; padding: 10px; border-radius: 10px; font-family: monospace;">
+            <pre>{code}</pre>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText(`{escaped_code}`)">Copy Code</button>
+        </div>
+    """
 
 # Main chat interface
 st.title("💬 Chat with Gemini AI")
@@ -139,15 +152,6 @@ st.title("💬 Chat with Gemini AI")
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-# Function to add code block and copy button
-def format_code_block(code):
-    return f"""
-        <div style="position: relative; background: #2d2d2d; color: #ffffff; padding: 10px; border-radius: 10px; font-family: monospace;">
-            <pre>{code}</pre>
-            <button class="copy-btn" onclick="navigator.clipboard.writeText(`{code.replace('`', '\\`')}`)">Copy Code</button>
-        </div>
-    """
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -197,7 +201,12 @@ if prompt := st.chat_input("What's on your mind?"):
                     <div class="message">{full_response}▌</div>
                 </div>
             """, unsafe_allow_html=True)
-        full_response = format_code_block(full_response) if '```' in full_response else full_response
+        
+        # Format response if it contains code
+        if '```' in full_response:
+            parts = full_response.split('```')
+            full_response = parts[0] + format_code_block(parts[1]) + parts[2]
+        
         message_placeholder.markdown(f"""
             <div class="chat-message bot">
                 <div class="avatar">
