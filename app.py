@@ -23,15 +23,16 @@ def load_lottieurl(url: str):
 # Custom CSS to make the app ultra beautiful
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
     
     html, body, [class*="css"] {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
     
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #ffffff;
+        padding: 20px;
     }
     
     .stTextInput > div > div > input {
@@ -40,6 +41,7 @@ st.markdown("""
         border: none;
         border-radius: 20px;
         padding: 10px 20px;
+        font-size: 16px;
     }
     
     .stButton > button {
@@ -49,7 +51,9 @@ st.markdown("""
         border: none;
         padding: 10px 20px;
         font-weight: bold;
+        font-size: 16px;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
     
     .stButton > button:hover {
@@ -62,6 +66,7 @@ st.markdown("""
         border-radius: 0.5rem;
         margin-bottom: 1rem;
         display: flex;
+        align-items: center;
         animation: fadeIn 0.5s ease-out;
     }
     
@@ -94,6 +99,7 @@ st.markdown("""
         width: 85%;
         padding: 0 1.5rem;
         color: #ffffff;
+        font-size: 16px;
     }
     
     .stTextArea textarea {
@@ -101,6 +107,19 @@ st.markdown("""
         color: #ffffff;
         border: none;
         border-radius: 10px;
+        font-size: 16px;
+    }
+    
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        font-size: 14px;
+        color: #ffffff;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -181,7 +200,7 @@ if prompt := st.chat_input("What's on your mind?"):
 
 # Add a footer
 st.markdown("""
-    <div style='position: fixed; bottom: 0; left: 0; right: 0; text-align: center; padding: 10px; background-color: rgba(255, 255, 255, 0.1);'>
-        <p style='color: #ffffff;'>Created with ❤️ using Streamlit and Gemini AI</p>
+    <div class='footer'>
+        Created with ❤️ using Streamlit and Gemini AI
     </div>
 """, unsafe_allow_html=True)
