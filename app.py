@@ -121,14 +121,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar
-with st.sidebar:
-    st.title("🤖 Gemini AI Chat")
-    # Lottie Animation
-    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_hu9cd9.json"
-    lottie_json = load_lottieurl(lottie_url)
-    st_lottie(lottie_json, speed=1, height=200, key="sidebar_animation")
-
 # Main chat interface
 st.title("💬 Chat with Gemini AI")
 
