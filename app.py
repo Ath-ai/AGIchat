@@ -111,15 +111,12 @@ st.markdown("""
     }
     
     .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
         text-align: center;
         padding: 10px;
         background-color: rgba(255, 255, 255, 0.1);
         font-size: 14px;
         color: #ffffff;
+        margin-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -127,10 +124,6 @@ st.markdown("""
 # Sidebar
 with st.sidebar:
     st.title("🤖 Gemini AI Chat")
-    st.markdown("---")
-    st.subheader("About")
-    st.info("This is an ultra-beautiful Gemini AI chat interface built with Streamlit. Ask anything and watch the magic happen!")
-    
     # Lottie Animation
     lottie_url = "https://assets5.lottiefiles.com/packages/lf20_hu9cd9.json"
     lottie_json = load_lottieurl(lottie_url)
